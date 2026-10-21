@@ -1,0 +1,14 @@
+# seems like make install fails due to fedora permission
+$ make install 
+ar rcs build/lcthw.a src/lcthw/list.o
+ranlib build/lcthw.a
+cc -shared -o build/lcthw.so src/lcthw/list.o
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:83: ----- RUNNING: tests/list_tests
+[INFO] (tests/list_tests.c:72) Hello world
+
+install -d //usr/local/lib/
+install build/lcthw.a //usr/local/lib/
+install: cannot create regular file '//usr/local/lib/lcthw.a': Permission denied
+make: *** [Makefile:48: install] Error 1
