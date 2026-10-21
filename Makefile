@@ -33,7 +33,7 @@ build:
 .PHONY: tests
 tests: CFLAGS += $(TARGET)
 tests: $(TESTS)
-	sh ./tests/runtests.sh
+	sh tests/runtest.sh
 
 # The Cleaner
 clean:
