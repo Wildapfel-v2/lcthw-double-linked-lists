@@ -1,0 +1,4 @@
+----
+RUNNING: build/tests/list_tests
+FAILED: Failed to create list.
+Tests run: 1

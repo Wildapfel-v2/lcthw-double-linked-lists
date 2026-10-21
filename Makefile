@@ -6,7 +6,7 @@ SOURCES=$(wildcard src/**/*.c src/*.c)
 OBJECTS=$(patsubst src%,build%, $(patsubst %.c,%.o,$(SOURCES)))
 
 TEST_SRC=$(wildcard tests/*_tests.c)
-TESTS=$(patsubst %.c,%,$(TEST_SRC))
+TESTS=$(patsubst tests%,build/tests%, $(patsubst %.c,%,$(TEST_SRC)))
 
 TARGET=build/lcthw.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
@@ -16,6 +16,12 @@ all: $(TARGET) $(SO_TARGET) tests
 
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
+
+$(OBJECTS): build
+	$(CC) $(CFLAGS) -c $(SOURCES) -o $(OBJECTS)
+
+$(TESTS): build
+	$(CC) $(CFLAGS) $(TEST_SRC) $(TARGET) -o $(TESTS)
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)
@@ -27,20 +33,22 @@ $(SO_TARGET): $(TARGET) $(OBJECTS)
 
 build:
 	@mkdir -p build
+	@mkdir -p build/lcthw
+	@mkdir -p build/tests
 	@mkdir -p bin
 
 # The Unit Tests
 .PHONY: tests
-tests: CFLAGS += $(TARGET)
+# tests: CFLAGS += $(TARGET)
 tests: $(TESTS)
 	sh tests/runtest.sh
 
 # The Cleaner
 clean:
-	rm -rf build $(OBJECTS) $(TESTS)
-	rm -f tests/tests.log 
-	find . -name "*.gc*" -exec rm {} \;
-	rm -rf `find . -name "*.dSYM" -print`
+	@rm -rf build $(OBJECTS) $(TESTS)
+	@rm -f tests/tests.log 
+	@find . -name "*.gc*" -exec rm {} \;
+	@rm -rf `find . -name "*.dSYM" -print`
 
 # The Install
 install: all
@@ -57,4 +65,5 @@ check:
 # My own
 dev-own:
 	echo $(OBJECTS)
+	echo $(TESTS)
 
