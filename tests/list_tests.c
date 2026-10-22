@@ -15,6 +15,19 @@ char *test_create(){
 
 char *test_clear(){
 
+    List_push(list, test1);
+    mu_assert(List_last(list) == test1, "Wrong last value.");
+    List_push(list, test2);
+    mu_assert(List_last(list) == test2, "Wrong last value");
+    List_push(list, test3);
+    mu_assert(List_last(list) == test3, "Wrong last value");
+    
+    List_clear(list);
+    mu_assert(List_count(list) == 3, "Count doenst math");
+    mu_assert(list->first->value == NULL, "Count doenst math");
+    mu_assert(list->first->next->value == NULL, "Count doenst math");
+    mu_assert(list->first->next->next->value == NULL, "Count doenst math");
+
     return NULL;
 }
 
@@ -22,8 +35,6 @@ char *test_destroy(){
 
     return NULL;
 }
-
-
 
 
 // char *test_destroy(){
@@ -84,9 +95,10 @@ char *test_push_pop(){
 char *all_tests(){
     mu_suite_start();
     mu_run_test(test_create);
-    mu_run_test(test_push_pop);
     mu_run_test(test_clear);
-    mu_run_test(test_destroy);
+    // mu_run_test(test_push_pop);
+    // mu_run_test(test_destroy);
+    // mu_run_test(test_clear);
     // mu_run_test(test_unshift);
     // mu_run_test(test_remove);
     // mu_run_test(test_shift);

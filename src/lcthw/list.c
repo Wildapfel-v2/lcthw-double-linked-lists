@@ -20,6 +20,13 @@ void List_destroy(List *list){
 
 void List_clear(List *list){
 
+    ListNode *curnode = list->first;
+    
+    while (curnode != NULL){
+        curnode->value = NULL;
+        curnode = curnode->next;
+    }    
+    
 }
 
 void List_push(List * list, void *value){
@@ -37,6 +44,7 @@ void List_push(List * list, void *value){
     
     // non-empty
     new_node->prev = list->last;
+    new_node->prev->next = new_node;
     list->last = new_node;
     list->count++;
         
