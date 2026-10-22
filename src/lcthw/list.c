@@ -10,6 +10,31 @@ List *List_create(){
     
 }
 
+<<<<<<< Updated upstream
+=======
+void List_clear_destroy(List *list){
+
+}
+
+void List_destroy(List *list){
+
+
+
+
+}
+
+void List_clear(List *list){
+
+    // ListNode *curnode = list->first;
+    
+    // while (curnode != NULL){
+    //     curnode->value = NULL;
+    //     curnode = curnode->next;
+    // }    
+    
+}
+
+>>>>>>> Stashed changes
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));

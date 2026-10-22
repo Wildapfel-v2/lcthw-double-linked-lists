@@ -1,11 +1,14 @@
 #include "minunit.h"
 #include <assert.h>
 #include <lcthw/list.h>
+#include <string.h>
+#include<stdio.h>
 
 static List *list = NULL;
-char *test1 = "test1 data";
-char *test2 = "test2 data";
-char *test3 = "test3 data";
+
+static char *s1 = NULL;
+static char *s2 = NULL;
+static char *s3 = NULL;
 
 char *test_create(){
     list = List_create();
@@ -13,12 +16,40 @@ char *test_create(){
     return NULL;
 }
 
+<<<<<<< Updated upstream
 // char *test_destroy(){
 //     List_clear_destroy(list);
+=======
+// char *test_clear(){
+
+//     List_push(list, test1);
+//     mu_assert(List_last(list) == test1, "Wrong last value.");
+//     List_push(list, test2);
+//     mu_assert(List_last(list) == test2, "Wrong last value");
+//     List_push(list, test3);
+//     mu_assert(List_last(list) == test3, "Wrong last value");
+    
+//     List_clear(list);
+//     mu_assert(List_count(list) == 3, "Count doenst math");
+//     mu_assert(list->first->value == NULL, "Count doenst math");
+//     mu_assert(list->first->next->value == NULL, "Count doenst math");
+//     mu_assert(list->first->next->next->value == NULL, "Count doenst math");
+
+>>>>>>> Stashed changes
 //     return NULL;
 // }
 
-char *test_push_pop(){
+// char *test_destroy(){
+//     return NULL;
+// }
+
+
+// // char *test_destroy(){
+// //     List_clear_destroy(list);
+// //     return NULL;
+// // }
+
+char *test_push_pop(char *test1, char *test2, char *test3){
     List_push(list, test1);
     mu_assert(List_last(list) == test1, "Wrong last value.");
     List_push(list, test2);
@@ -69,9 +100,26 @@ char *test_push_pop(){
 // }
 
 char *all_tests(){
+<<<<<<< Updated upstream
     mu_suite_start();
     mu_run_test(test_create);
     mu_run_test(test_push_pop);
+=======
+
+    s1 = strdup("hello world");
+    s2 = strdup("hello world");
+    s3 = strdup("hello world");
+
+
+    free(s1);
+    log_info("%s", s1);
+    // mu_suite_start();
+    // mu_run_test(test_create);
+    // mu_run_test(test_push_pop(test1, test2, test3));
+    // mu_run_test(test_clear);
+    // mu_run_test(test_destroy);
+    // mu_run_test(test_clear);
+>>>>>>> Stashed changes
     // mu_run_test(test_unshift);
     // mu_run_test(test_remove);
     // mu_run_test(test_shift);
