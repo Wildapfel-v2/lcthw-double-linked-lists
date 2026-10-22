@@ -10,6 +10,18 @@ List *List_create(){
     
 }
 
+void List_clear_destroy(List *list){
+
+}
+
+void List_destroy(List *list){
+
+}
+
+void List_clear(List *list){
+
+}
+
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
