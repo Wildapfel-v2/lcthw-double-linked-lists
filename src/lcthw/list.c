@@ -42,7 +42,3 @@ void *List_pop(List * list){
     return return_value_ptr;
     
 }
-
-
-
-
