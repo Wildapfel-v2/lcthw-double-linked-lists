@@ -8,7 +8,6 @@ char *test2 = "test2 data";
 char *test3 = "test3 data";
 
 char *test_create(){
-
     list = List_create();
     mu_assert(list != NULL, "Failed to create list.");
     return NULL;
@@ -70,7 +69,6 @@ char *test_push_pop(){
 // }
 
 char *all_tests(){
-    // log_info("Hello world");
     mu_suite_start();
     mu_run_test(test_create);
     mu_run_test(test_push_pop);
