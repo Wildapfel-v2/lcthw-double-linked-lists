@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "dbg.h"
 #include <lcthw/list.h>
+#include <assert.h>
 
 
 List *List_create(){
@@ -11,29 +12,32 @@ List *List_create(){
 }
 
 void List_clear_destroy(List *list){
-
 }
 
 void List_destroy(List *list){
 
+    ListNode *curnode = list->first;
 
-
+    while (curnode != NULL){
+        curnode = curnode->next;
+        free(list->first->value);
+        free(list->first);
+        list->first = curnode;
+    }        
+    free(list);
+    list = NULL;
 
 }
 
 void List_clear(List *list){
-
-    LIST_FOREACH(list, first, next, cur) {
-        free(cur->value);
-    }
-
-
-    // ListNode *curnode = list->first;
     
-    // while (curnode != NULL){
-    //     curnode->value = NULL;
-    //     curnode = curnode->next;
-    // }    
+    ListNode *curnode = list->first;
+
+    while (curnode != NULL){
+        free(curnode->value);
+        curnode->value = NULL;
+        curnode = curnode->next;
+    }    
     
 }
 
