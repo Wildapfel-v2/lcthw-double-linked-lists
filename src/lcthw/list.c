@@ -16,16 +16,24 @@ void List_clear_destroy(List *list){
 
 void List_destroy(List *list){
 
+
+
+
 }
 
 void List_clear(List *list){
 
-    ListNode *curnode = list->first;
+    LIST_FOREACH(list, first, next, cur) {
+        free(cur->value);
+    }
+
+
+    // ListNode *curnode = list->first;
     
-    while (curnode != NULL){
-        curnode->value = NULL;
-        curnode = curnode->next;
-    }    
+    // while (curnode != NULL){
+    //     curnode->value = NULL;
+    //     curnode = curnode->next;
+    // }    
     
 }
 
