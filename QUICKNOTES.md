@@ -3,10 +3,8 @@
 # quicker wd change
 ```
 cd Workbench/learn-c-the-hard-way-revisited/v2/exercises/part03-implementations/ex32-double-linked-lists/
-<<<<<<< Updated upstream
 clear
 ```
-=======
 ```
 
 # found a bug in the book
@@ -14,4 +12,3 @@ clear
     - `free() invalid pointer`, in his test suite, because you cannot free varibles that are not on the heap !!!
 - Strincly speaking, he is freeing a string literal which lives on the ro-data of the program !!!
 
->>>>>>> Stashed changes
