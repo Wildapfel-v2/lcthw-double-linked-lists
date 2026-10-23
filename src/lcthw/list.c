@@ -105,3 +105,13 @@ void *List_shift(List * list){
     return return_value_ptr;
 
 }
+
+void *List_remove(List * list, ListNode * node){
+
+    node->prev->next = node->next;
+    node->next->prev = node->prev;
+
+    return node->value;
+
+}
+
