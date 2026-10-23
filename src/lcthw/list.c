@@ -6,8 +6,9 @@
 
 List *List_create(){
 
-    List *list = (List *) malloc(sizeof(List));    
-    return list;
+    // List *list = (List *) malloc(sizeof(List));    
+    // return list;
+    return calloc(1, sizeof(List));
     
 }
 
@@ -48,12 +49,15 @@ void List_clear_destroy(List * list){
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
-    new_node->prev = NULL;
-    new_node->next = NULL;
+    check_mem(new_node);
+    // new_node->prev = NULL;
+    // new_node->next = NULL;
     new_node->value = value;
+    log_info("hello world");
     
     // handle empty
     if (list->count == 0){
+        log_info("hello world");
         list->first = new_node; 
         list->last = new_node; 
         list->count++;
@@ -65,6 +69,9 @@ void List_push(List * list, void *value){
     new_node->prev->next = new_node;
     list->last = new_node;
     list->count++;
+
+    error:
+    return;
         
 }
 
