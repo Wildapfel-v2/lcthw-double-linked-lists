@@ -1,0 +1,38 @@
+$ make sanitize 
+gcc -g -O2 -Wall -Wextra -Isrc -Iinclude -rdynamic -DNDEBUG  -fsanitize=address,undefined tests/list_tests.c build/lcthw.a -o build/tests/list_tests
+In file included from tests/list_tests.c:1:
+tests/list_tests.c: In function ‘main’:
+tests/minunit.h:16:38: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+   16 | #define RUN_TESTS(name) int main(int argc, char *argv[]) {\
+      |                                  ~~~~^~~~
+tests/list_tests.c:92:1: note: in expansion of macro ‘RUN_TESTS’
+   92 | RUN_TESTS(all_tests);
+      | ^~~~~~~~~
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:92: ----- RUNNING: build/tests/list_tests
+DEBUG tests/list_tests.c:82: 
+----- test_create
+DEBUG tests/list_tests.c:83: 
+----- test_push_pop
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==289514==ERROR: AddressSanitizer: SEGV on unknown address (pc 0x000000403372 bp 0x7bf05fbe0010 sp 0x7ffe275399d0 T0)
+==289514==The signal is caused by a READ memory access.
+==289514==Hint: this fault was caused by a dereference of a high value address (see register values below).  Disassemble the provided pc to learn which register was used.
+    #0 0x000000403372 in List_push src/lcthw/list.c:65
+    #1 0x000000400bd6 in test_push_pop tests/list_tests.c:22
+    #2 0x000000402f97 in all_tests tests/list_tests.c:83
+    #3 0x0000004008de in main tests/list_tests.c:92
+    #4 0x7fd060c305b4 in __libc_start_call_main (/usr/lib64/libc.so.6+0x35b4) (BuildId: 12e74671e7bfc0b6699fd701dd3881b5137163d4)
+    #5 0x7fd060c30667 in __libc_start_main@@GLIBC_2.34 (/usr/lib64/libc.so.6+0x3667) (BuildId: 12e74671e7bfc0b6699fd701dd3881b5137163d4)
+    #6 0x0000004009c4 in _start (/run/media/max-inspiron/Storage/Hands-On/coding/exercises/learn-c-the-hard-way/v2/exercises/part03-implementations/ex32-double-linked-lists/build/tests/list_tests+0x4009c4) (BuildId: de1d736224d301fc0f93e5f26b975a0fc5bbfd65)
+
+==289514==Register values:
+rax = 0x00007c005fbe0070  rbx = 0x00007c005fbe0040  rcx = 0xbebebebebebebebe  rdx = 0x00000000bebebebf  
+rdi = 0x00007c005fbe0070  rsi = 0x0000000000000018  rbp = 0x00007bf05fbe0010  rsp = 0x00007ffe275399d0  
+ r8 = 0x00007fd060d73800   r9 = 0x0000000000000000  r10 = 0x00007c005fbe0060  r11 = 0x00007fd0619d5a10  
+r12 = 0x00007ffe27539b78  r13 = 0x0000000000000001  r14 = 0x00007fd061b6e000  r15 = 0x0000000000407db8  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV src/lcthw/list.c:65 in List_push
+==289514==ABORTING
