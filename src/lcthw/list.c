@@ -7,8 +7,6 @@
 List *List_create(){
 
     List *list = (List *) malloc(sizeof(List));    
-    // list->first = NULL;
-    // list->last = NULL;
     return list;
     
 }
