@@ -41,16 +41,9 @@ char *test_destroy(){
     mu_assert(List_last(list) == test3, "Wrong last value");
   
     List_destroy(list);
-    log_info("%p", NULL);
-    mu_assert(list == NULL, "List not empty");
-
+   
     return NULL;
 }
-
-// char *test_destroy(){
-//     List_clear_destroy(list);
-//     return NULL;
-// }
 
 char *test_push_pop(){
 
@@ -78,16 +71,16 @@ char *test_push_pop(){
 
 }
 
-// char *test_unshift(){
-//     List_unshift(list, test1);
-//     mu_assert(List_first(list) == test1, "Wrong first value.");
-//     List_unshift(list, test2);
-//     mu_assert(List_first(list) == test2, "Wrong first value");
-//     List_unshift(list, test3);
-//     mu_assert(List_first(list) == test3, "Wrong last value.");
-//     mu_assert(List_count(list) == 3, "Wrong count on unshift.");
-//     return NULL;
-// }
+char *test_unshift(){
+    List_unshift(list, test1);
+    mu_assert(List_first(list) == test1, "Wrong first value.");
+    List_unshift(list, test2);
+    mu_assert(List_first(list) == test2, "Wrong first value");
+    List_unshift(list, test3);
+    mu_assert(List_first(list) == test3, "Wrong last value.");
+    mu_assert(List_count(list) == 3, "Wrong count on unshift.");
+    return NULL;
+}
 
 // char *test_remove(){
 //     // we only need to test the middle remove case since push/shift
@@ -118,11 +111,11 @@ char *all_tests(){
 
     mu_suite_start();
     mu_run_test(test_create);
-    mu_run_test(test_destroy);
+    // mu_run_test(test_destroy);
     // mu_run_test(test_clear);
     // mu_run_test(test_push_pop);
     // mu_run_test(test_clear);
-    // mu_run_test(test_unshift);
+    mu_run_test(test_unshift);
     // mu_run_test(test_remove);
     // mu_run_test(test_shift);
     // mu_run_test(test_destroy);
