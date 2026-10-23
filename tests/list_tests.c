@@ -3,9 +3,9 @@
 #include <lcthw/list.h>
 
 static List *list = NULL;
-char *test1 = "test1 data";
-char *test2 = "test2 data";
-char *test3 = "test3 data";
+static char *test1;
+static char *test2;
+static char *test3;
 
 char *test_create(){
     list = List_create();
@@ -13,39 +13,74 @@ char *test_create(){
     return NULL;
 }
 
-// char *test_destroy(){
-//     List_clear_destroy(list);
-//     return NULL;
-// }
+char *test_clear(){
 
-char *test_push_pop(){
     List_push(list, test1);
     mu_assert(List_last(list) == test1, "Wrong last value.");
     List_push(list, test2);
     mu_assert(List_last(list) == test2, "Wrong last value");
     List_push(list, test3);
-    mu_assert(List_last(list) == test3, "Wrong last value.");
-    mu_assert(List_count(list) == 3, "Wrong count on push.");
-    char *val = List_pop(list);
-    mu_assert(val == test3, "Wrong value on pop.");
-    val = List_pop(list);
-    mu_assert(val == test2, "Wrong value on pop.");
-    val = List_pop(list);
-    mu_assert(val == test1, "Wrong value on pop.");
-    mu_assert(List_count(list) == 0, "Wrong count after pop.");
+    mu_assert(List_last(list) == test3, "Wrong last value");
+  
+    List_clear(list);
+    mu_assert(List_count(list) == 3, "Count doenst math");
+    mu_assert(list->first->value == NULL, "Count doenst math");
+    mu_assert(list->first->next->value == NULL, "Count doenst math");
+    mu_assert(list->first->next->next->value == NULL, "Count doenst math");
+
     return NULL;
 }
 
-// char *test_unshift(){
-//     List_unshift(list, test1);
-//     mu_assert(List_first(list) == test1, "Wrong first value.");
-//     List_unshift(list, test2);
-//     mu_assert(List_first(list) == test2, "Wrong first value");
-//     List_unshift(list, test3);
-//     mu_assert(List_first(list) == test3, "Wrong last value.");
-//     mu_assert(List_count(list) == 3, "Wrong count on unshift.");
-//     return NULL;
-// }
+char *test_destroy(){
+
+    List_push(list, test1);
+    mu_assert(List_last(list) == test1, "Wrong last value.");
+    List_push(list, test2);
+    mu_assert(List_last(list) == test2, "Wrong last value");
+    List_push(list, test3);
+    mu_assert(List_last(list) == test3, "Wrong last value");
+  
+    List_destroy(list);
+   
+    return NULL;
+}
+
+char *test_push_pop(){
+
+    List_push(list, test1);
+    mu_assert(List_last(list) == test1, "Wrong last value.");
+    
+    List_push(list, test2);
+    mu_assert(List_last(list) == test2, "Wrong last value");
+    
+    List_push(list, test3);
+    mu_assert(List_last(list) == test3, "Wrong last value.");
+    mu_assert(List_count(list) == 3, "Wrong count on push.");
+    
+    char *val = List_pop(list);
+    mu_assert(val == test3, "Wrong value on pop.");
+    
+    val = List_pop(list);
+    mu_assert(val == test2, "Wrong value on pop.");
+    
+    val = List_pop(list);
+    mu_assert(val == test1, "Wrong value on pop.");
+    mu_assert(List_count(list) == 0, "Wrong count after pop.");
+    
+    return NULL;
+
+}
+
+char *test_unshift(){
+    List_unshift(list, test1);
+    mu_assert(List_first(list) == test1, "Wrong first value.");
+    List_unshift(list, test2);
+    mu_assert(List_first(list) == test2, "Wrong first value");
+    List_unshift(list, test3);
+    mu_assert(List_first(list) == test3, "Wrong last value.");
+    mu_assert(List_count(list) == 3, "Wrong count on unshift.");
+    return NULL;
+}
 
 // char *test_remove(){
 //     // we only need to test the middle remove case since push/shift
@@ -69,10 +104,18 @@ char *test_push_pop(){
 // }
 
 char *all_tests(){
+
+    test1 = strdup("test1 data");
+    test2 = strdup("test2 data");
+    test3 = strdup("test3 data");
+
     mu_suite_start();
     mu_run_test(test_create);
-    mu_run_test(test_push_pop);
-    // mu_run_test(test_unshift);
+    // mu_run_test(test_destroy);
+    // mu_run_test(test_clear);
+    // mu_run_test(test_push_pop);
+    // mu_run_test(test_clear);
+    mu_run_test(test_unshift);
     // mu_run_test(test_remove);
     // mu_run_test(test_shift);
     // mu_run_test(test_destroy);

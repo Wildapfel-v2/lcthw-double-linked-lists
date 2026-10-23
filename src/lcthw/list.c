@@ -1,12 +1,40 @@
 #include <stdio.h>
 #include "dbg.h"
 #include <lcthw/list.h>
+#include <assert.h>
 
 
 List *List_create(){
 
     List *list = (List *) malloc(sizeof(List));    
     return list;
+    
+}
+
+void List_destroy(List *list){
+
+    ListNode *curnode = list->first;
+
+    while (curnode != NULL){
+        curnode = curnode->next;
+        free(list->first->value);
+        free(list->first);
+        list->first = curnode;
+    }        
+    free(list);
+    list = NULL;
+
+}
+
+void List_clear(List *list){
+    
+    ListNode *curnode = list->first;
+
+    while (curnode != NULL){
+        free(curnode->value);
+        curnode->value = NULL;
+        curnode = curnode->next;
+    }    
     
 }
 
@@ -25,6 +53,7 @@ void List_push(List * list, void *value){
     
     // non-empty
     new_node->prev = list->last;
+    new_node->prev->next = new_node;
     list->last = new_node;
     list->count++;
         
