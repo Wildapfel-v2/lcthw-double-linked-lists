@@ -7,6 +7,8 @@
 List *List_create(){
 
     List *list = (List *) malloc(sizeof(List));    
+    // list->first = NULL;
+    // list->last = NULL;
     return list;
     
 }
@@ -48,10 +50,12 @@ void List_clear_destroy(List * list){
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    new_node->prev = NULL;
+    new_node->next = NULL;
     new_node->value = value;
     
     // handle empty
-    if (list->first == NULL && list->last == NULL){
+    if (list->count == 0){
         list->first = new_node; 
         list->last = new_node; 
         list->count++;
@@ -82,10 +86,11 @@ void *List_pop(List * list){
 void List_unshift(List * list, void *value){
 
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    new_node->prev = NULL;
+    new_node->next = NULL;
     new_node->value = value;
     
-    // handle empty
-    if (list->first == NULL && list->last == NULL){
+    if (list->count == 0){
         list->first = new_node; 
         list->last = new_node; 
         list->count++;
@@ -93,7 +98,6 @@ void List_unshift(List * list, void *value){
     }
 
     // non-empty
-    new_node->prev = NULL;
     new_node->next = list->first;
     list->first->prev = new_node;
     list->first = new_node;
@@ -123,4 +127,3 @@ void *List_remove(List * list, ListNode * node){
     return node->value;
 
 }
-
