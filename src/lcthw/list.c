@@ -38,6 +38,15 @@ void List_clear(List *list){
     
 }
 
+void List_clear_destroy(List * list){
+
+    List_clear(list);
+    List_destroy(list);
+
+}
+
+
+
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
