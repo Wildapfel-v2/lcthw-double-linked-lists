@@ -45,8 +45,6 @@ void List_clear_destroy(List * list){
 
 }
 
-
-
 void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
@@ -97,6 +95,7 @@ void List_unshift(List * list, void *value){
     // non-empty
     new_node->prev = NULL;
     new_node->next = list->first;
+    list->first->prev = new_node;
     list->first = new_node;
     list->count++;
 
