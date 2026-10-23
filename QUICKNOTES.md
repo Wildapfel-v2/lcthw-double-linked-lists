@@ -15,3 +15,8 @@ clear
 # I belive that i have in list_destroy a bug !!!
 - I beleive I dont free last in list, i think I will check tomorrow with soem debugger or and 
   extensive memeory profiling if iam right
+
+# Evaluation problem of NULL
+- i cannot to this: `list->last == NULL` (or first), because the pointer is pointing somehwere 
+  into the list struct, so its clearly not correct
+
