@@ -127,4 +127,3 @@ void *List_remove(List * list, ListNode * node){
     return node->value;
 
 }
-
