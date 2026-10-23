@@ -93,15 +93,15 @@ char *test_unshift(){
 //     return NULL;
 // }
 
-// char *test_shift(){
-//     mu_assert(List_count(list) != 0, "Wrong count before shift.");
-//     char *val = List_shift(list);
-//     mu_assert(val == test3, "Wrong value on shift.");
-//     val = List_shift(list);
-//     mu_assert(val == test1, "Wrong value on shift.");
-//     mu_assert(List_count(list) == 0, "Wrong count after shift.");
-//     return NULL;
-// }
+char *test_shift(){
+    mu_assert(List_count(list) != 0, "Wrong count before shift.");
+    char *val = List_shift(list);
+    mu_assert(val == test3, "Wrong value on shift.");
+    val = List_shift(list);
+    mu_assert(val == test2, "Wrong value on shift.");
+    mu_assert(List_count(list) == 1, "Wrong count after shift.");
+    return NULL;
+}
 
 char *all_tests(){
 
@@ -117,7 +117,7 @@ char *all_tests(){
     // mu_run_test(test_clear);
     mu_run_test(test_unshift);
     // mu_run_test(test_remove);
-    // mu_run_test(test_shift);
+    mu_run_test(test_shift);
     // mu_run_test(test_destroy);
     return NULL;
 }

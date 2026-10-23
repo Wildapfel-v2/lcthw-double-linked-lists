@@ -71,3 +71,37 @@ void *List_pop(List * list){
     return return_value_ptr;
     
 }
+
+void List_unshift(List * list, void *value){
+
+    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    new_node->value = value;
+    
+    // handle empty
+    if (list->first == NULL && list->last == NULL){
+        list->first = new_node; 
+        list->last = new_node; 
+        list->count++;
+        return;
+    }
+
+    // non-empty
+    new_node->prev = NULL;
+    new_node->next = list->first;
+    list->first = new_node;
+    list->count++;
+
+}
+
+void *List_shift(List * list){
+
+    void *return_value_ptr = NULL;
+    if (list->count == 0 ) return return_value_ptr;
+
+    return_value_ptr = list->first->value;
+    list->first = list->first->next;
+    list->count--;
+
+    return return_value_ptr;
+
+}
