@@ -83,13 +83,21 @@ char *test_unshift(){
 }
 
 char *test_remove(){
+
+    List_push(list, test1);
+    mu_assert(List_last(list) == test1, "Wrong last value.");
+    List_push(list, test2);
+    mu_assert(List_last(list) == test2, "Wrong last value");
+    List_push(list, test3);
+    mu_assert(List_last(list) == test3, "Wrong last value");
+
     // we only need to test the middle remove case since push/shift
     // already tests the other cases
     char *val = List_remove(list, list->first->next);
     mu_assert(val == test2, "Wrong removed element.");
     mu_assert(List_count(list) == 2, "Wrong count after remove.");
-    mu_assert(List_first(list) == test3, "Wrong first after remove.");
-    mu_assert(List_last(list) == test1, "Wrong last after remove.");
+    mu_assert(List_first(list) == test1, "Wrong first after remove.");
+    mu_assert(List_last(list) == test3, "Wrong last after remove.");
     return NULL;
 }
 

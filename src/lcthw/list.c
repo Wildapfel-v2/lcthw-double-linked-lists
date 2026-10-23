@@ -110,6 +110,7 @@ void *List_remove(List * list, ListNode * node){
 
     node->prev->next = node->next;
     node->next->prev = node->prev;
+    list->count--;
 
     return node->value;
 
