@@ -5,7 +5,6 @@
 cd Workbench/learn-c-the-hard-way-revisited/v2/exercises/part03-implementations/ex32-double-linked-lists/
 clear
 ```
-```
 
 # found a bug in the book
 - I didnt validate his test-code, but I found when breaking from his order, I got:
