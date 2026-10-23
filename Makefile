@@ -67,3 +67,6 @@ dev-own:
 	echo $(OBJECTS)
 	echo $(TESTS)
 
+sanitize:
+	gcc $(CFLAGS) -fsanitize=address,undefined $(TEST_SRC) $(TARGET) -o $(TESTS)
+	sh tests/runtest.sh
