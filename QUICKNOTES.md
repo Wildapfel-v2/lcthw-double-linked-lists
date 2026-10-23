@@ -20,3 +20,10 @@ clear
 - i cannot to this: `list->last == NULL` (or first), because the pointer is pointing somehwere 
   into the list struct, so its clearly not correct
 
+# fsanitize
+- `libubsan`, `libasan` missing in fedora silverblue base image (toolbox requried) 
+- I received an error: 
+  - `==318552==ERROR: AddressSanitizer: SEGV on unknown address (pc 0x00000040339b bp 0x7bea6d7e0040 sp 0x7fffd7b4ef20 T0)` (never have seens so low-level)
+- I had to ask the chatbots here
+- Solution:
+  - use Calloc instead of cast+malloc, but i have no idea what this means (TODO!!!)
