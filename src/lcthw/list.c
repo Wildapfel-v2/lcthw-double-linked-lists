@@ -125,6 +125,7 @@ void *List_remove(List * list, ListNode * node){
 
     node->prev->next = node->next;
     node->next->prev = node->prev;
+    free(node);
     list->count--;
 
     return node->value;
