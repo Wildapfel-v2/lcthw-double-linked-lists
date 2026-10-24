@@ -13,11 +13,6 @@ char *test_create() {
     return NULL;
 }
 
-char *test_destroy() {
-    List_clear_destroy(list);
-    return NULL;
-}
-
 char *test_push_pop() {
     List_push(list, test1);
     mu_assert(List_last(list) == test1, "Wrong last value.");
@@ -60,6 +55,13 @@ char *test_remove() {
     mu_assert(List_last(list) == test1, "Wrong last after remove.");
     return NULL;
 }
+
+char *test_remove_edge_case(){
+
+
+
+}
+
 
 char *test_shift() {
     mu_assert(List_count(list) != 0, "Wrong count before shift.");
