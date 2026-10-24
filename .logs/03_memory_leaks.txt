@@ -1,0 +1,42 @@
+$ make sanitize 
+gcc -g -O2 -Wall -Wextra -Isrc -Iinclude -rdynamic -DNDEBUG  -fsanitize=address,undefined tests/list_tests.c build/lcthw.a -o build/tests/list_tests
+In file included from tests/list_tests.c:1:
+tests/list_tests.c: In function ‘main’:
+tests/minunit.h:16:38: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+   16 | #define RUN_TESTS(name) int main(int argc, char *argv[]) {\
+      |                                  ~~~~^~~~
+tests/list_tests.c:91:1: note: in expansion of macro ‘RUN_TESTS’
+   91 | RUN_TESTS(all_tests);
+      | ^~~~~~~~~
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:91: ----- RUNNING: build/tests/list_tests
+DEBUG tests/list_tests.c:81: 
+----- test_create
+DEBUG tests/list_tests.c:82: 
+----- test_push_pop
+DEBUG tests/list_tests.c:83: 
+----- test_unshift
+DEBUG tests/list_tests.c:84: 
+----- test_remove
+DEBUG tests/list_tests.c:85: 
+----- test_shift
+DEBUG tests/list_tests.c:86: 
+----- test_destroy
+
+=================================================================
+==33498==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7f931729af4b in malloc (/usr/lib64/libasan.so.8+0xe6f4b) (BuildId: d7d37a712ed67f505b486de13595e3f6cc124ee8)
+    #1 0x000000403445 in List_unshift src/lcthw/list.c:89
+
+Indirect leak of 72 byte(s) in 3 object(s) allocated from:
+    #0 0x7f931729af4b in malloc (/usr/lib64/libasan.so.8+0xe6f4b) (BuildId: d7d37a712ed67f505b486de13595e3f6cc124ee8)
+    #1 0x000000403365 in List_push src/lcthw/list.c:51
+
+Indirect leak of 48 byte(s) in 2 object(s) allocated from:
+    #0 0x7f931729af4b in malloc (/usr/lib64/libasan.so.8+0xe6f4b) (BuildId: d7d37a712ed67f505b486de13595e3f6cc124ee8)
+    #1 0x000000403445 in List_unshift src/lcthw/list.c:89
+
+SUMMARY: AddressSanitizer: 144 byte(s) leaked in 6 allocation(s).
