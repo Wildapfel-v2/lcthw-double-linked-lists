@@ -12,7 +12,7 @@ clear
       not on the heap !!!
 - Strincly speaking, he is freeing a string literal which lives on the ro-data of the program !!!
 
-# I belive that i have in list_destroy a bug !!!
+# I belive that I have in list_destroy a bug !!!
 - I beleive I dont free last in list, i think I will check tomorrow with soem debugger or and 
   extensive memeory profiling if iam right
 
@@ -27,3 +27,9 @@ clear
 - I had to ask the chatbots here
 - Solution:
   - use Calloc instead of cast+malloc, but i have no idea what this means (TODO!!!)
+
+# my implementation of remove is still broken
+- fsanitize shows me some direct and indirect memory leaks
+- I suspect i dont free the delete node there
+- And the edge cases are not imlemented yet -> first/last 
+
