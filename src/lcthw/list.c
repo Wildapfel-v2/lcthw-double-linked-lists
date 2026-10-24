@@ -48,7 +48,8 @@ void List_clear_destroy(List * list){
 
 void List_push(List * list, void *value){
     
-    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    // ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    ListNode *new_node = calloc(1, sizeof(ListNode));
     check_mem(new_node);
     new_node->value = value;
     
@@ -86,9 +87,10 @@ void *List_pop(List * list){
 
 void List_unshift(List * list, void *value){
 
-    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
-    new_node->prev = NULL;
-    new_node->next = NULL;
+    ListNode *new_node = calloc(1, sizeof(ListNode));
+    // ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    // new_node->prev = NULL;
+    // new_node->next = NULL;
     new_node->value = value;
     
     if (list->count == 0){
