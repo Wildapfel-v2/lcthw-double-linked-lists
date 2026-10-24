@@ -14,8 +14,15 @@ List *List_create(){
 
 void List_destroy(List *list){
 
+    log_info("hello world"); 
+    if (list->first == NULL) {
+        log_info("hello world");
+        free(list);
+        list = NULL;
+    }
+    
     ListNode *curnode = list->first;
-
+    
     while (curnode != NULL){
         curnode = curnode->next;
         free(list->first->value);
@@ -24,11 +31,18 @@ void List_destroy(List *list){
     }        
     free(list);
     list = NULL;
-
+    
 }
 
 void List_clear(List *list){
     
+    log_info("hello world"); 
+    if (list->first == NULL) {
+        log_info("hello world");
+        free(list);
+        list = NULL;
+    }
+
     ListNode *curnode = list->first;
 
     while (curnode != NULL){
@@ -123,11 +137,35 @@ void *List_shift(List * list){
 
 void *List_remove(List * list, ListNode * node){
 
-    node->prev->next = node->next;
-    node->next->prev = node->prev;
+    // To dont get segfault in edge cases, you need pointer comparison 
+    // and and checking the counts to handle edge cases appropriatly.
+    
+    // empty
+    if (list->count == 0){
+        return NULL;
+    }
+    // single 
+    if (list->count == 1){
+        list->first = NULL;
+        list->last = NULL;
+        ;
+    }
+    // first elemment
+    else if (node == list->first){ 
+        list->first = list->first->next;
+    }
+    // last elemnt
+    else if (!(node == list->first) && node == list->last){        
+        list->last = list->last->prev;
+    }
+    // inbetween
+    else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
     free(node);
     list->count--;
-
-    return node->value;
+    
+    return  node->value;//return_val;
 
 }

@@ -62,10 +62,15 @@ char *test_remove() {
 
 char *test_remove_multiple_calls(){
     char *val;
-    val = List_remove(list, list->first->next);
-    val = List_remove(list, list->first->next);
+    val = List_remove(list, list->first);
+    log_info("%s", val);
+    val = List_remove(list, list->first);
+    log_info("%s", val);
+    val = List_remove(list, list->first);
+    log_info("%s", val);
+    // // val = List_remove(list, list->first);
+    // val = List_remove(list, list->first->next);
 }
-
 
 char *test_shift() {
     mu_assert(List_count(list) != 0, "Wrong count before shift.");
