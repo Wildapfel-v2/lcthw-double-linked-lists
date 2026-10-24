@@ -1,0 +1,45 @@
+$ make sanitize 
+gcc -g -O2 -Wall -Wextra -Isrc -Iinclude -rdynamic -DNDEBUG  -fsanitize=address,undefined tests/list_tests.c build/lcthw.a -o build/tests/list_tests
+tests/list_tests.c: In function ‘test_remove_multiple_calls’:
+tests/list_tests.c:64:11: warning: variable ‘val’ set but not used [-Wunused-but-set-variable]
+   64 |     char *val;
+      |           ^~~
+In file included from tests/list_tests.c:1:
+tests/list_tests.c: In function ‘main’:
+tests/minunit.h:16:38: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+   16 | #define RUN_TESTS(name) int main(int argc, char *argv[]) {\
+      |                                  ~~~~^~~~
+tests/list_tests.c:99:1: note: in expansion of macro ‘RUN_TESTS’
+   99 | RUN_TESTS(all_tests);
+      | ^~~~~~~~~
+tests/list_tests.c: In function ‘test_remove_multiple_calls’:
+tests/list_tests.c:67:1: warning: control reaches end of non-void function [-Wreturn-type]
+   67 | }
+      | ^
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:99: ----- RUNNING: build/tests/list_tests
+DEBUG tests/list_tests.c:88: 
+----- test_create
+DEBUG tests/list_tests.c:90: 
+----- test_unshift
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==63668==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x00000040347f bp 0x7bf4cbfe0040 sp 0x7ffd4d1311d0 T0)
+==63668==The signal is caused by a WRITE memory access.
+==63668==Hint: address points to the zero page.
+    #0 0x00000040347f in List_remove src/lcthw/list.c:133
+    #1 0x000000403141 in all_tests tests/list_tests.c:91
+    #2 0x00000040089e in main tests/list_tests.c:99
+    #3 0x7fc4cd0915b4 in __libc_start_call_main (/usr/lib64/libc.so.6+0x35b4) (BuildId: 12e74671e7bfc0b6699fd701dd3881b5137163d4)
+    #4 0x7fc4cd091667 in __libc_start_main@@GLIBC_2.34 (/usr/lib64/libc.so.6+0x3667) (BuildId: 12e74671e7bfc0b6699fd701dd3881b5137163d4)
+    #5 0x000000400984 in _start (/run/media/max-inspiron/Storage/Hands-On/coding/exercises/learn-c-the-hard-way/v2/exercises/part03-implementations/ex32-double-linked-lists/build/tests/list_tests+0x400984) (BuildId: 284a6220f7e6928a6cdc0bbbfa2617cd3216cc96)
+
+==63668==Register values:
+rax = 0x0000000000000000  rbx = 0x00007bf4cbfe0070  rcx = 0x00000f7e997fc01a  rdx = 0x00007bf4cbfe00d0  
+rdi = 0x00007bf4cbfe0070  rsi = 0x00007bf4cbfe0070  rbp = 0x00007bf4cbfe0040  rsp = 0x00007ffd4d1311d0  
+ r8 = 0x00007bf4cbfe0090   r9 = 0x0000000000002018  r10 = 0x0000000000000008  r11 = 0x00007bc4cbfe0000  
+r12 = 0x00007ffd4d131348  r13 = 0x0000000000000001  r14 = 0x00007fc4cdfcf000  r15 = 0x0000000000407db0  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV src/lcthw/list.c:133 in List_remove
+==63668==ABORTING

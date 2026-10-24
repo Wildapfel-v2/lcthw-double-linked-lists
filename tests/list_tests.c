@@ -60,6 +60,13 @@ char *test_remove() {
     return NULL;
 }
 
+char *test_remove_multiple_calls(){
+    char *val;
+    val = List_remove(list, list->first->next);
+    val = List_remove(list, list->first->next);
+}
+
+
 char *test_shift() {
     mu_assert(List_count(list) != 0, "Wrong count before shift.");
     char *val = List_shift(list);
@@ -79,10 +86,11 @@ char *all_tests() {
     mu_suite_start();
 
     mu_run_test(test_create);
-    mu_run_test(test_push_pop);
+    // mu_run_test(test_push_pop);
     mu_run_test(test_unshift);
-    mu_run_test(test_remove);
-    mu_run_test(test_shift);
+    test_remove_multiple_calls();
+    // mu_run_test(test_remove);
+    // mu_run_test(test_shift);
     mu_run_test(test_destroy);
 
     return NULL;
