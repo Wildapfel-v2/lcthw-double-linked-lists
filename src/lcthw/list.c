@@ -50,10 +50,7 @@ void List_push(List * list, void *value){
     
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
     check_mem(new_node);
-    // new_node->prev = NULL;
-    // new_node->next = NULL;
     new_node->value = value;
-    log_info("hello world");
     
     // handle empty
     if (list->count == 0){
