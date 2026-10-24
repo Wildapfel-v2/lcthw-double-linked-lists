@@ -57,7 +57,6 @@ void List_push(List * list, void *value){
     
     // handle empty
     if (list->count == 0){
-        log_info("hello world");
         list->first = new_node; 
         list->last = new_node; 
         list->count++;
