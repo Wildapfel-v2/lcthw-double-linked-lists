@@ -27,3 +27,11 @@ clear
 - I had to ask the chatbots here
 - Solution:
   - use Calloc instead of cast+malloc, but i have no idea what this means (TODO!!!)
+
+# my implementation of remove is still broken
+- fsanitize shows me some direct and indirect memory leaks
+- I suspect i dont free the delete node there
+- And the edge cases are not imlemented yet -> first/last 
+
+# calloc vs malloc
+- why doesn malloc raises some memory issues?
