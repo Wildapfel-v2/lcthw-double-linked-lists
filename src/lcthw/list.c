@@ -14,11 +14,10 @@ List *List_create(){
 
 void List_destroy(List *list){
 
-    log_info("hello world"); 
     if (list->first == NULL) {
-        log_info("hello world");
         free(list);
         list = NULL;
+        return;
     }
     
     ListNode *curnode = list->first;
@@ -36,11 +35,8 @@ void List_destroy(List *list){
 
 void List_clear(List *list){
     
-    log_info("hello world"); 
     if (list->first == NULL) {
-        log_info("hello world");
-        free(list);
-        list = NULL;
+        return;
     }
 
     ListNode *curnode = list->first;
@@ -140,6 +136,7 @@ void *List_remove(List * list, ListNode * node){
     // To dont get segfault in edge cases, you need pointer comparison 
     // and and checking the counts to handle edge cases appropriatly.
     
+    // log_info("hello world");
     // empty
     if (list->count == 0){
         return NULL;
@@ -148,14 +145,13 @@ void *List_remove(List * list, ListNode * node){
     if (list->count == 1){
         list->first = NULL;
         list->last = NULL;
-        ;
     }
     // first elemment
     else if (node == list->first){ 
         list->first = list->first->next;
     }
     // last elemnt
-    else if (!(node == list->first) && node == list->last){        
+    else if (node == list->last){        
         list->last = list->last->prev;
     }
     // inbetween
@@ -166,6 +162,6 @@ void *List_remove(List * list, ListNode * node){
     free(node);
     list->count--;
     
-    return  node->value;//return_val;
+    return  node->value;
 
 }

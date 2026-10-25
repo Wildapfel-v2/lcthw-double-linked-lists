@@ -63,13 +63,11 @@ char *test_remove() {
 char *test_remove_multiple_calls(){
     char *val;
     val = List_remove(list, list->first);
-    log_info("%s", val);
+    mu_assert(List_count(list) == 2, "Wrong count on unshift.");
     val = List_remove(list, list->first);
-    log_info("%s", val);
+    mu_assert(List_count(list) == 1, "Wrong count on unshift.");
     val = List_remove(list, list->first);
-    log_info("%s", val);
-    // // val = List_remove(list, list->first);
-    // val = List_remove(list, list->first->next);
+    mu_assert(List_count(list) == 0, "Wrong count on unshift.");
 }
 
 char *test_shift() {
