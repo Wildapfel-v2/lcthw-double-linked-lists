@@ -12,7 +12,7 @@ clear
       not on the heap !!!
 - Strincly speaking, he is freeing a string literal which lives on the ro-data of the program !!!
 
-# I belive that i have in list_destroy a bug !!!
+# I belive that I have in list_destroy a bug !!!
 - I beleive I dont free last in list, i think I will check tomorrow with soem debugger or and 
   extensive memeory profiling if iam right
 
@@ -34,4 +34,4 @@ clear
 - And the edge cases are not imlemented yet -> first/last 
 
 # calloc vs malloc
-- why doesn malloc raises some memory issues?
+- why doesn malloc raises some memory issues? 

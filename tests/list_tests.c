@@ -60,6 +60,25 @@ char *test_remove() {
     return NULL;
 }
 
+char *test_remove_multiple_calls(){
+
+    List_push(list, test1);
+    mu_assert(List_last(list) == test1, "Wrong last value.");
+    List_push(list, test2);
+    mu_assert(List_last(list) == test2, "Wrong last value");
+    List_push(list, test3);
+    mu_assert(List_last(list) == test3, "Wrong last value.");
+    mu_assert(List_count(list) == 3, "Wrong count on push.");
+
+    char *val;
+    val = List_remove(list, list->first);
+    mu_assert(List_count(list) == 2, "Wrong count on unshift.");
+    val = List_remove(list, list->first);
+    mu_assert(List_count(list) == 1, "Wrong count on unshift.");
+    val = List_remove(list, list->first);
+    mu_assert(List_count(list) == 0, "Wrong count on unshift.");
+}
+
 char *test_shift() {
     mu_assert(List_count(list) != 0, "Wrong count before shift.");
     char *val = List_shift(list);
@@ -80,6 +99,7 @@ char *all_tests() {
 
     mu_run_test(test_create);
     mu_run_test(test_push_pop);
+    mu_run_test(test_remove_multiple_calls);
     mu_run_test(test_unshift);
     mu_run_test(test_remove);
     mu_run_test(test_shift);

@@ -6,16 +6,20 @@
 
 List *List_create(){
 
-    // List *list = (List *) malloc(sizeof(List));    
-    // return list;
     return calloc(1, sizeof(List));
     
 }
 
 void List_destroy(List *list){
 
+    if (list->first == NULL) {
+        free(list);
+        list = NULL;
+        return;
+    }
+    
     ListNode *curnode = list->first;
-
+    
     while (curnode != NULL){
         curnode = curnode->next;
         free(list->first->value);
@@ -24,11 +28,15 @@ void List_destroy(List *list){
     }        
     free(list);
     list = NULL;
-
+    
 }
 
 void List_clear(List *list){
     
+    if (list->first == NULL) {
+        return;
+    }
+
     ListNode *curnode = list->first;
 
     while (curnode != NULL){
@@ -48,7 +56,7 @@ void List_clear_destroy(List * list){
 
 void List_push(List * list, void *value){
     
-    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
+    ListNode *new_node = calloc(1, sizeof(ListNode));
     check_mem(new_node);
     new_node->value = value;
     
@@ -86,9 +94,7 @@ void *List_pop(List * list){
 
 void List_unshift(List * list, void *value){
 
-    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
-    new_node->prev = NULL;
-    new_node->next = NULL;
+    ListNode *new_node = calloc(1, sizeof(ListNode));
     new_node->value = value;
     
     if (list->count == 0){
@@ -121,10 +127,34 @@ void *List_shift(List * list){
 
 void *List_remove(List * list, ListNode * node){
 
-    node->prev->next = node->next;
-    node->next->prev = node->prev;
+    // To dont get segfault in edge cases, you need pointer comparison 
+    // and and checking the counts to handle edge cases appropriatly.
+    
+    // empty
+    if (list->count == 0){
+        return NULL;
+    }
+    // single 
+    if (list->count == 1){
+        list->first = NULL;
+        list->last = NULL;
+    }
+    // first elemment
+    else if (node == list->first){ 
+        list->first = list->first->next;
+    }
+    // last elemnt
+    else if (node == list->last){        
+        list->last = list->last->prev;
+    }
+    // inbetween
+    else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+    free(node);
     list->count--;
-
-    return node->value;
+    
+    return  node->value;
 
 }
