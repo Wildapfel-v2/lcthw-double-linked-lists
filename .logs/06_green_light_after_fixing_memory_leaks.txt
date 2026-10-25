@@ -1,0 +1,121 @@
+$ make
+cc -g -O2 -Wall -Wextra -Isrc -Iinclude -rdynamic -DNDEBUG  -fPIC -c src/lcthw/list.c -o build/lcthw/list.o
+src/lcthw/list.c: In function ‘List_remove’:
+src/lcthw/list.c:170:17: warning: pointer ‘node’ used after ‘free’ [-Wuse-after-free=]
+  170 |     return  node->value;
+      |             ~~~~^~~~~~~
+src/lcthw/list.c:167:5: note: call to ‘free’ here
+  167 |     free(node);
+      |     ^~~~~~~~~~
+ar rcs build/lcthw.a build/lcthw/list.o
+ranlib build/lcthw.a
+cc -shared -o build/lcthw.so build/lcthw/list.o
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:133: ----- RUNNING: build/tests/list_tests
+DEBUG tests/list_tests.c:122: 
+----- test_create
+DEBUG tests/list_tests.c:123: 
+----- test_push_pop
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e0070 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e00a0 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e00d0 
+[INFO] (src/lcthw/list.c:181) List->count: 3
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e00a0 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e0070 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+DEBUG tests/list_tests.c:124: 
+----- test_remove_multiple_calls
+DEBUG tests/list_tests.c:125: 
+----- test_unshift
+DEBUG tests/list_tests.c:126: 
+----- test_remove
+DEBUG tests/list_tests.c:127: 
+----- test_shift
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e01f0 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e0190 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b43571e0190 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b43571e0190 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+DEBUG tests/list_tests.c:128: 
+----- test_destroy
+
+$ make sanitize 
+gcc -g -O2 -Wall -Wextra -Isrc -Iinclude -rdynamic -DNDEBUG  -fsanitize=address,undefined tests/list_tests.c build/lcthw.a -o build/tests/list_tests
+tests/list_tests.c: In function ‘test_remove_multiple_calls’:
+tests/list_tests.c:86:11: warning: variable ‘val’ set but not used [-Wunused-but-set-variable]
+   86 |     char *val;
+      |           ^~~
+In file included from tests/list_tests.c:1:
+tests/list_tests.c: In function ‘main’:
+tests/minunit.h:16:38: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+   16 | #define RUN_TESTS(name) int main(int argc, char *argv[]) {\
+      |                                  ~~~~^~~~
+tests/list_tests.c:133:1: note: in expansion of macro ‘RUN_TESTS’
+  133 | RUN_TESTS(all_tests);
+      | ^~~~~~~~~
+sh tests/runtest.sh
+Running unit tests:
+DEBUG tests/list_tests.c:133: ----- RUNNING: build/tests/list_tests
+DEBUG tests/list_tests.c:122: 
+----- test_create
+DEBUG tests/list_tests.c:123: 
+----- test_push_pop
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e00a0 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e00d0 
+[INFO] (src/lcthw/list.c:181) List->count: 3
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e00a0 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e0070 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+DEBUG tests/list_tests.c:124: 
+----- test_remove_multiple_calls
+DEBUG tests/list_tests.c:125: 
+----- test_unshift
+DEBUG tests/list_tests.c:126: 
+----- test_remove
+DEBUG tests/list_tests.c:127: 
+----- test_shift
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e01f0 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e0190 
+[INFO] (src/lcthw/list.c:181) List->count: 2
+[INFO] (src/lcthw/list.c:179) List->First: 0x7b6a943e0190 
+[INFO] (src/lcthw/list.c:180) List->Last:  0x7b6a943e0190 
+[INFO] (src/lcthw/list.c:181) List->count: 1
+[INFO] (src/lcthw/list.c:179) List->First: (nil) 
+[INFO] (src/lcthw/list.c:180) List->Last:  (nil) 
+[INFO] (src/lcthw/list.c:181) List->count: 0
+DEBUG tests/list_tests.c:128: 
+----- test_destroy
