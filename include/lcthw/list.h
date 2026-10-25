@@ -38,4 +38,7 @@ void *List_remove(List * list, ListNode * node);
                                                    ListNode *V = NULL;\
 for(V = _node = L->S; _node != NULL; V = _node = _node->M)
 
+// my debug function
+void List_debug(List *list);
+
 #endif

@@ -36,7 +36,6 @@ void List_clear(List *list){
     if (list->first == NULL) {
         return;
     }
-
     ListNode *curnode = list->first;
 
     while (curnode != NULL){
@@ -81,14 +80,19 @@ void List_push(List * list, void *value){
 
 void *List_pop(List * list){
     
-    void *return_value_ptr = NULL;
-    if (list->count == 0 ) return return_value_ptr;
-
-    return_value_ptr = list->last->value;
-    list->last = list->last->prev;
+    if (list->count == 0 ) return NULL;
+ 
+    void *val = list->last->value;
+    ListNode *prev = list->last->prev; 
+    free(list->last);
+    list->last = prev;
     list->count--;
 
-    return return_value_ptr;
+    if (list->count == 0){
+        list->first = NULL;
+    }
+
+    return val;
     
 }
 
@@ -114,14 +118,20 @@ void List_unshift(List * list, void *value){
 
 void *List_shift(List * list){
 
-    void *return_value_ptr = NULL;
-    if (list->count == 0 ) return return_value_ptr;
-
-    return_value_ptr = list->first->value;
-    list->first = list->first->next;
+    if (list->count == 0 ) return NULL;
+ 
+    void *val = list->first->value;
+    ListNode *next = list->first->next; 
+    free(list->first);
+    list->first = next;
     list->count--;
 
-    return return_value_ptr;
+    if (list->count == 0){
+        list->last = NULL;
+    }
+
+    return val;
+    
 
 }
 
@@ -136,6 +146,8 @@ void *List_remove(List * list, ListNode * node){
     }
     // single 
     if (list->count == 1){
+        // free(list->first);
+        // free(list->last):
         list->first = NULL;
         list->last = NULL;
     }
@@ -158,3 +170,17 @@ void *List_remove(List * list, ListNode * node){
     return  node->value;
 
 }
+
+/*
+*   Print all the states of the object.
+*/ 
+void List_debug(List *list){
+
+    log_info("List->First: %p ",list->first);
+    log_info("List->Last:  %p ",list->last);
+    log_info("List->count: %d", list->count);
+
+
+}
+
+

@@ -35,3 +35,12 @@ clear
 
 # calloc vs malloc
 - why doesn malloc raises some memory issues?
+
+# ASan names where memory was allocated, not where it leaked !!!
+- I am confused witht he deugging output: 
+> ==48188==ERROR: LeakSanitizer: detected memory leaks
+> Indirect leak of 72 byte(s) in 3 object(s) allocated from:
+>   #0 0x7f20b5e238c3 in calloc (/usr/lib64/libasan.so.8+0xe68c3) (BuildId: 
+>   d7d37a712ed67f505b486de13595e3f6cc124ee8)
+>   #1 0x00000040430a in List_push src/lcthw/list.c:59
+- In push i allocate something that is never freeed !!
