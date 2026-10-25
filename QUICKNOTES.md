@@ -33,3 +33,5 @@ clear
 - I suspect i dont free the delete node there
 - And the edge cases are not imlemented yet -> first/last 
 
+# calloc vs malloc
+- why doesn malloc raises some memory issues?
