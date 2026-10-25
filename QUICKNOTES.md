@@ -34,4 +34,4 @@ clear
 - And the edge cases are not imlemented yet -> first/last 
 
 # calloc vs malloc
-- why doesn malloc raises some memory issues? 
+- why doesn malloc raises some memory issues?
