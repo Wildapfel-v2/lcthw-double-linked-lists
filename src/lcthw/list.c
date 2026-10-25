@@ -6,8 +6,6 @@
 
 List *List_create(){
 
-    // List *list = (List *) malloc(sizeof(List));    
-    // return list;
     return calloc(1, sizeof(List));
     
 }
@@ -58,7 +56,6 @@ void List_clear_destroy(List * list){
 
 void List_push(List * list, void *value){
     
-    // ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
     ListNode *new_node = calloc(1, sizeof(ListNode));
     check_mem(new_node);
     new_node->value = value;
@@ -98,9 +95,6 @@ void *List_pop(List * list){
 void List_unshift(List * list, void *value){
 
     ListNode *new_node = calloc(1, sizeof(ListNode));
-    // ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
-    // new_node->prev = NULL;
-    // new_node->next = NULL;
     new_node->value = value;
     
     if (list->count == 0){
@@ -136,7 +130,6 @@ void *List_remove(List * list, ListNode * node){
     // To dont get segfault in edge cases, you need pointer comparison 
     // and and checking the counts to handle edge cases appropriatly.
     
-    // log_info("hello world");
     // empty
     if (list->count == 0){
         return NULL;
